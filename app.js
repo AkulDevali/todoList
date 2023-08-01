@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 
 mongoose.connect("mongodb+srv://admin-akul:test123@cluster0.rw2l1.mongodb.net/?retryWrites=true&w=majority/todolist");
-
+// mongoose.connect("mongodb://localhost:27017/");
 const itemsSchema = {
   name: String
 };
@@ -59,11 +59,13 @@ app.get("/",function(req,res){
           console.log("Success");
         }
       });
-      res.redirect("/");
-    }else{
-      res.render("list",{listTitle:"Today", newListItems:foundItems});
+      // res.redirect("/");
+    // }else{
+    //   res.render("list",{listTitle:"Today", newListItems:foundItems});
+    // }
     }
 
+      res.render("list",{listTitle:"Today", newListItems:foundItems})
   });
 
 
@@ -108,6 +110,9 @@ app.post("/delete",function(req,res){
       if(!err){
         console.log("delete success");
         res.redirect("/");
+      }
+      else{
+        console.log(err);
       }
     });
   } else{
